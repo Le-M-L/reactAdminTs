@@ -1,5 +1,5 @@
 import React, { ReactNode, useState } from "react"
-import * as auth from "auth-provider"
+import * as auth from "../auth-provider"
 
 
 const AuthContext = React.createContext<{
@@ -18,14 +18,14 @@ interface AuthForm {
 
 
 
-export const AuthProvider = ({children}:{children:ReactNode}) => {
+export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const [user, setUser] = useState<auth.User | null>(null)
 
     const login = (form: AuthForm) => auth.login(form).then(setUser)
     const register = (form: AuthForm) => auth.register(form).then(setUser)
-    const logout = () => auth.logout().then(() => setUser(null))
+    const logout =  () => auth.logout().then(() => setUser(null))
 
-return <AuthContext.Provider children={children} value={{ user, login, register, logout }} />
+    return <AuthContext.Provider children={children} value={{ user, login, register, logout }} />
 }
 
 export const useAuth = () => {
