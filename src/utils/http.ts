@@ -74,11 +74,16 @@ export const useHttp = () => {
 // const xiaoMing: Person = { name: 'xiaoming' }
 
 type Person = {
-    name:string,
-    age:number
+    name: string,
+    age: number
 }
 
 // Partial 用于person不固定数据
-const xiaoMing:Partial<Person> = {name:'xiaoMing'};
+const xiaoMing: Partial<Person> = { name: 'xiaoMing' };
 
-// const shenMiRen: 
+// Omit 第一个是基础类型 第二个是要删除的属性名
+const shenMiRen: Omit<Person, 'name' | 'age'> = {age:8}
+
+// keyof
+// Pick
+// Exclude
