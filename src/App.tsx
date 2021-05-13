@@ -1,10 +1,25 @@
 import './App.css';
-import { Button } from "antd"
+import { Button, Card } from "antd"
+import styled from "@emotion/styled"
+
+const Container = styled.div`
+display: flex;
+flex-direction: column;
+align-items: center;
+min-height: 100vh;
+`
+
 
 function App() {
   return (
     <div className="App">
-      <Button type="primary" >按钮</Button>
+      <Container>
+        <Card>
+          <Button type="primary" >按钮</Button>
+
+        </Card>
+
+      </Container>
     </div>
   );
 }
