@@ -1,13 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+
 import App from './App';
-//默认的antd样式
-import "antd/dist/antd.less"
+// 引入store
+import store from './store';
+
+import reportWebVitals from './reportWebVitals';
+
 
 ReactDOM.render(
-  <React.StrictMode>
+  // 2、然后使用react-redux的Provider将props与容器连通起来
+  <Provider store={store} >
     <App />
-  </React.StrictMode>,
-  document.getElementById("root")
+  </Provider>,
+  document.getElementById('root')
 );
 
+reportWebVitals();
