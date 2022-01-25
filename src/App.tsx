@@ -8,7 +8,9 @@ import { Spin } from 'antd';
 //Navigate跳转错误显示的页面
 import { HashRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 // import { layoutRouteList } from './router/utils';
+import { routers } from "./router/index";
 
+console.log(routers)
 function App() {
   return (
     <Router>
@@ -18,12 +20,12 @@ function App() {
         {/* 挂载路由 */}
         {/* <Route path="/admin" render={(routeProps) => <App {...routeProps} />} /> */}
         {/* 除了admin的其他路由 路由所有属性全都赋值下去 */}
-        {/* {mainRoutes.map((route) => (
+        {routers.map((route) => (
           <Route key={route.path} {...route} />
-        ))} */}
+        ))}
         {/* 找不到路径就使用404 */}
-        <Navigate to="/login" replace  />
-        <Navigate to="/404" />
+        {/* <Navigate to="/login" replace  /> */}
+        {/* <Navigate to="/404" /> */}
       </Routes>
     </Suspense>
   </Router>

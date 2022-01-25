@@ -5,7 +5,7 @@ export interface RouterBase {
     // 路由路径
     path: string;
     // 路由组件
-    component?: any;
+    element?: any;
     // 302 跳转
     redirect?: string;
     // 路由信息
@@ -21,8 +21,8 @@ export interface IRouteMeta {
 
 export const routers: RouterBase[] = [
     {
-        path: '/system',
-        component: React.lazy(() => import('../views/errow')),
+        path: '/dd',
+        element: React.lazy(() => import('../views/error')),
         meta: {
           title: '系统路由',
         },
