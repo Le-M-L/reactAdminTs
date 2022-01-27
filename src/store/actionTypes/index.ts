@@ -1,0 +1,6 @@
+
+export enum AppEnum {
+  ROUTESLIST = "ROUTESLIST",
+  SETPAGELOADING = "SETPAGELOADING",
+}
+

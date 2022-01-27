@@ -1,17 +1,22 @@
-import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import { ConfigProvider } from 'antd';
+import zhCN from 'antd/es/locale/zh_CN';
+
+import store from './store';
 import App from './App';
-import { loadDevTools } from "jira-dev-tool"
-import { AppProviders } from "./context/index"
-
-loadDevTools(() => ReactDOM.render(
-  <React.StrictMode>
-    <AppProviders>
-      <App />
-    </AppProviders>
-  </React.StrictMode>,
-  document.getElementById('root')
-))
+import './design/index.less';
 
 
+const Main = () => {
+  return (
+    <Provider store={store}>
+      <ConfigProvider locale={zhCN}>
+        <App />
+      </ConfigProvider>
+    </Provider>
+  )
+}
+
+ReactDOM.render(<Main />, document.getElementById('root'));
 
