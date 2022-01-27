@@ -12,7 +12,6 @@ import { HashRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { routers } from "./router/index";
 
 function App() {
-  const {user} = useAuth()
   return (
     <HashRouter>
       {/* Suspense 优化页面交互 */}
