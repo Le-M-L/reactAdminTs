@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Dispatch } from "redux"
-import { RootReducer } from "../../store/reducers"
+import { RootReducer } from "@/store/reducers"
 import { setRoutesList } from "../../store/actions/app"
 
-class Counter extends Component<any> {
+class Error extends Component<any> {
   public render() {
-    const { ddd, app } = this.props;
-    return <div onClick={ddd.bind(this,{test:app.test + 1})} >{app.test}</div>;
+    const { action, app } = this.props;
+    return <div onClick={action.bind(this,{test:app.test + 1})} >{app.test}</div>;
   }
 }
 
@@ -16,11 +16,11 @@ const mapStateToProps = ({ app }: RootReducer) => {
 };
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-  ddd: (val: any) => {
+  action: (val: any) => {
     return dispatch(setRoutesList(val))
   },
 })
 
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(Counter);
+export default connect(mapStateToProps, mapDispatchToProps)(Error);
