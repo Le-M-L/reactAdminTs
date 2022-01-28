@@ -1,11 +1,10 @@
-import { AppEnum } from "../actionTypes";
+import { AppStoreEnum } from "../actionTypes";
 
 export interface DefaultState {
   test: string;
 }
-
-interface AppAction {
-  type: AppEnum;
+interface AppStore{
+  type: 'ROUTESLIST' | 'SETPAGELOADING';
   value: any;
 }
 
@@ -13,12 +12,12 @@ const defaultState: DefaultState = {
   test: "测试",
 };
 
-const routeMenu = (state = defaultState, action: AppAction) => {
+const routeMenu = (state = defaultState, action: AppStore) => {
   // let newState = JSON.parse(JSON.stringify(state))
   switch (action.type) {
-    case AppEnum.ROUTESLIST:
+    case AppStoreEnum.ROUTESLIST:
   return { ...state,...action.value };
-    case AppEnum.SETPAGELOADING:
+    case AppStoreEnum.SETPAGELOADING:
       return { ...state,...action.value };
     default:
       break;

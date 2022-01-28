@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "target": "esnext",
-    "module": "esnext",
+    "module": "esnext",  // 模块编译
     "lib": [
       "dom",
       "dom.iterable",

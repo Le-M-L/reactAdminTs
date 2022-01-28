@@ -1,6 +1,4 @@
-
-export enum AppEnum {
+export enum AppStoreEnum {
   ROUTESLIST = "ROUTESLIST",
   SETPAGELOADING = "SETPAGELOADING",
 }
-
