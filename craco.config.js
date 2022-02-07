@@ -98,19 +98,6 @@ module.exports = {
 
           return lessModuleRule;
         },
-        // cssLoaderOptions: {
-        //   modules: {
-        //     localIdentName: "[local]__[hash:base64:5]",
-        //     // 回调必须返回 `local`，`global`  默认global
-        //     mode: (resourcePath) => {
-        //       if (/(modules|local)\.(less|css)$/i.test(resourcePath)) {
-        //         return "local";
-        //       }
-        //       return "global";
-        //     },
-        //   },
-        // },
-
         lessLoaderOptions: {
           lessOptions: {
             modifyVars: {
@@ -120,10 +107,8 @@ module.exports = {
             },
             javascriptEnabled: true,
             //配置全局less 变量，不需要在使用的地方导入了
-            //  globalVars: {
-            //    hack: `true; @import (reference) "${path.resolve(
-            //     "src/design/config.less"
-            //   )}";`,
+            globalVars: {
+              hack: `true; @import '~@/design/config.less';`
             }
           },
         },
