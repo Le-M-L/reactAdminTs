@@ -1,18 +1,19 @@
-import React, { Component } from "react";
 import { Layout } from "antd";
 import LayoutHeader from "./Header";
 import LayoutContent from "./Content";
 import LayoutFooter from "./Footer";
-import styles from './layouts.module.less';
+import { useDesign } from "@/hooks/web/useDesign";
+import styles from "./layouts.m.less";
 console.log(styles)
-export default class index extends Component {
-  render() {
-    return (
-      <Layout className={styles.defaultLayout} >
-        <LayoutHeader/>
-        <LayoutContent />
-        <LayoutFooter />
-      </Layout>
-    );
-  }
-}
+const DefaultLayout = () => {
+  const { prefixCls } = useDesign("default-layout");
+  return (
+    <Layout className={prefixCls}>
+      <LayoutHeader />
+      <LayoutContent />
+      <LayoutFooter />
+    </Layout>
+  );
+};
+
+export default DefaultLayout;
