@@ -28,6 +28,7 @@
   },
   "include": [
     "src",
-    "types/*"
-  ]
+    "types/**/*.d.ts",
+  ],
+  "exclude": ["node_modules", "tests/server/**/*.ts", "dist", "**/*.js"]
 }

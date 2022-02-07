@@ -1,11 +1,8 @@
 import React, { Component } from "react";
-import { prefixCls } from "@/settings/designSetting";
 
 interface ContentContextValue {
-  prefixCls: string;
 }
 const contentContextValue = {
-  prefixCls: prefixCls,
 };
 
 const { Provider, Consumer } =
