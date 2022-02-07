@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Dispatch } from "redux"
-import { RootReducer } from "@/store/reducers"
 import { setRoutesList } from "../../store/actions/app"
 
 class Error extends Component<any> {
@@ -11,7 +10,7 @@ class Error extends Component<any> {
   }
 }
 
-const mapStateToProps = ({ app }: RootReducer) => {
+const mapStateToProps = ({ app }) => {
   return { app };
 };
 

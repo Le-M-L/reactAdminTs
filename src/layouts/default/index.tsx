@@ -5,11 +5,11 @@ import LayoutFooter from "./Footer";
 import LayoutSider from "./Sider";
 import LayoutFeature from "./Feature";
 import styles from "./layouts.m.less";
-
-const DefaultLayout = (props:any) => {
-  return (
+import { useMenuSetting } from "@/hooks/setting/useMenuSetting"
+const DefaultLayout = () => {
+useMenuSetting()
+return (
     <Layout className={styles["default-layout"]}>
-      {{props}}
       <LayoutHeader />
       {/* 功能性组件 */}
       <LayoutFeature />
@@ -24,4 +24,4 @@ const DefaultLayout = (props:any) => {
   );
 };
 
-export default DefaultLayout
+export default DefaultLayout;

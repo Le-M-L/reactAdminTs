@@ -1,14 +1,12 @@
-import { combineReducers } from "redux";
-import app from "./app";
+import { combineReducers, Reducer } from "redux";
+import { IStoreState, IAction } from "./types"
+import appState from "./app";
 
-export interface RootReducer {
-  app: any;
-}
 
 // import routeMenu from "./routeMenu"
-const rootReducer: RootReducer = {
+const rootReducer: Reducer<IStoreState, IAction<any>> = {
   // routeMenu,
-  app,
+  app:appState,
 };
 
 export const createReducer = (asyncReducers: any) =>

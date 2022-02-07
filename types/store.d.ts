@@ -1,8 +1,6 @@
 
+import type { ProjectConfig } from "#/config";
 
-export interface appStore {
-
-}
 
 declare global {
 
@@ -11,6 +9,9 @@ declare global {
      */
     interface IStore {
         // appStore: 
+    }
+    interface AppStore {
+        projectConfig: ProjectConfig | null;
     }
 
 }
