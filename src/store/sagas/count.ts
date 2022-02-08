@@ -1,6 +1,5 @@
 import { put, takeEvery } from "redux-saga/effects";
 
-import { AppStoreEnum } from "../actionTypes";
 /**
  * takeEvery 用于监听 redux
  */
@@ -31,5 +30,5 @@ function* fetchUser(): any {
 
 export default function* countSaga() {
   // 很重要的一点，进行捕获 组件里面发出的tyepe类型
-  yield takeEvery(AppStoreEnum.ROUTESLIST, fetchUser);
+  // yield takeEvery(AppStoreEnum.ROUTESLIST, fetchUser);
 }

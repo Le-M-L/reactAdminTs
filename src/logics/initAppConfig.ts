@@ -4,7 +4,7 @@ import { Persistent } from "@/utils/cache/persistent";
 import { PROJ_CFG_KEY } from "@/enums/cacheEnum";
 import { deepMerge } from '@/utils';
 import projectSetting from '@/settings/projectSetting';
-import { setProjectConfig } from "../store/actions/app"
+import { setProjectConfig } from "../store/module/app/actions"
 import store from "@/store"
 // 最初的项目配置
 export function initAppConfigStore() {

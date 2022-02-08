@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Dispatch } from "redux"
-import { setRoutesList } from "../../store/actions/app"
-
+import { setRoutesList } from "../../store/module/app/actions"
+import { IStoreState} from "@/store/types"
 class Error extends Component<any> {
   public render() {
     const { action, app } = this.props;
@@ -10,7 +10,7 @@ class Error extends Component<any> {
   }
 }
 
-const mapStateToProps = ({ app }) => {
+const mapStateToProps = ({ app }:IStoreState) => {
   return { app };
 };
 
