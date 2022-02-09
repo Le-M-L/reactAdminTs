@@ -2,6 +2,7 @@ import React from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
 import { Card, Alert, Typography } from 'antd';
 import styles from './Welcome.less';
+import { useModel } from 'umi';
 
 const CodePreview: React.FC = ({ children }) => (
   <pre className={styles.pre}>
@@ -12,6 +13,10 @@ const CodePreview: React.FC = ({ children }) => (
 );
 
 const Welcome: React.FC = () => {
+  const { fetchUserInfo } = useModel('@@initialState', (model) => {
+    return { fetchUserInfo: model.initialState?.fetchUserInfo };
+  });
+  fetchUserInfo();
   return (
     <PageContainer>
       <Card>
