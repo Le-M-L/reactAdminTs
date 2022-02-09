@@ -1,34 +1,37 @@
 {
   "compilerOptions": {
     "target": "esnext",
-    "module": "esnext",  // 模块编译
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
-    "noFallthroughCasesInSwitch": true,
+    "module": "esnext",
     "moduleResolution": "node",
     "resolveJsonModule": true,
-    "isolatedModules": true,
-    "noEmit": true,
+    "importHelpers": true,
     "jsx": "react-jsx",
-    "baseUrl": ".",
-    "paths":{
+    "esModuleInterop": true,
+    "sourceMap": true,
+    "baseUrl": "./",
+    "strict": true,
+    "paths": {
       "@/*": ["src/*"],
-      "#/*": ["types/*"]
+      "@@/*": ["src/.umi/*"]
     },
-    "types":["node"]
+    "allowSyntheticDefaultImports": true
   },
   "include": [
-    "src",
-    "types/**/*.d.ts",
+    "mock/**/*",
+    "src/**/*",
+    "config/**/*",
+    ".umirc.ts",
+    "typings.d.ts"
   ],
-  "exclude": ["node_modules", "tests/server/**/*.ts", "dist", "**/*.js"]
+  "exclude": [
+    "node_modules",
+    "lib",
+    "es",
+    "dist",
+    "typings",
+    "**/__test__",
+    "test",
+    "docs",
+    "tests"
+  ]
 }
