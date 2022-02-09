@@ -2,7 +2,7 @@
 /* eslint-disable */
 
 declare namespace API {
-  type CurrentUser = {
+  type UserInfo = {
     name?: string;
     avatar?: string;
     userid?: string;

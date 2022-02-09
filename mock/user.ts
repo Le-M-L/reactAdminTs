@@ -1,7 +1,8 @@
 import { Request, Response } from 'express';
 
 export default {
-  'GET /api/currentUser': (req: Request, res: Response) => {
+  /** 获取用户信息 */
+  'GET /api/userInfo': (req: Request, res: Response) => {
     res.send({
       success: true,
       data: {
@@ -13,6 +14,15 @@ export default {
         lastLoginTime: '2022-02-09 21:19:15', // 最后登录时间
         niceName: '昵称',
         loginName: '登录名',
+      },
+    });
+  },
+  /** 获取token */
+  'Get /api/login': (req: Request, res: Response) => {
+    res.send({
+      success: true,
+      data: {
+        token: 123456789, //
       },
     });
   },

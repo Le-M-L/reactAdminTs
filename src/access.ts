@@ -2,10 +2,10 @@
  * @see https://umijs.org/zh-CN/plugins/plugin-access
  * */
 export default function access(initialState: {
-  currentUser?: API.CurrentUser | undefined;
+  userInfo?: API.UserInfo | undefined;
 }) {
-  const { currentUser } = initialState || {};
+  const { userInfo } = initialState || {};
   return {
-    canAdmin: currentUser && currentUser.access === 'admin',
+    canAdmin: userInfo && userInfo.access === 'admin',
   };
 }

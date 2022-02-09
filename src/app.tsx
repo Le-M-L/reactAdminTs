@@ -3,7 +3,7 @@ import { PageLoading } from '@ant-design/pro-layout';
 import type { RunTimeLayoutConfig } from 'umi';
 import { history, Link } from 'umi';
 import defaultSettings from '../config/defaultSettings';
-import { currentUser as queryCurrentUser } from './services/ant-design-pro/api';
+import { getUserInfo as queryCurrentUser } from './services/ant-design-pro/api';
 import { BookOutlined, LinkOutlined } from '@ant-design/icons';
 import { SettingDrawer } from '@ant-design/pro-layout';
 
@@ -21,9 +21,9 @@ export const initialStateConfig = {
  * */
 export async function getInitialState(): Promise<{
   settings?: Partial<LayoutSettings>;
-  currentUser?: API.CurrentUser;
+  userInfo?: API.UserInfo;
   loading?: boolean;
-  fetchUserInfo?: () => Promise<API.CurrentUser | undefined>;
+  fetchUserInfo?: () => Promise<API.UserInfo | undefined>;
 }> {
   const fetchUserInfo = async () => {
     try {
@@ -37,10 +37,10 @@ export async function getInitialState(): Promise<{
   };
   // 如果是登录页面，不执行
   //  if (history.location.pathname !== loginPath) {
-  //   const currentUser = await fetchUserInfo();
+  //   const userInfo = await fetchUserInfo();
   //   return {
   //     fetchUserInfo,
-  //     currentUser,
+  //     userInfo,
   //     settings: defaultSettings,
   //   };
   // }
