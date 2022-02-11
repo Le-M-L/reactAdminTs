@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer, useCallback } from 'react';
+import React, { memo, useEffect, useReducer, useCallback } from 'react';
 import { Table } from 'antd';
 import {
   ArgTableProps,
@@ -6,6 +6,13 @@ import {
   initialStateType,
   actionType,
 } from './tyoings';
+
+// const compare = (pre: ArgTableProps, cur: ArgTableProps) => {
+//   let preState = JSON.stringify(pre.columns);
+//   let curState = JSON.stringify(cur.columns);
+//   if (preState !== curState) return false;
+//   return true;
+// };
 
 const useAsyncTable: React.FC<ArgTableProps> = (props) => {
   const { api, params, columns, baseProps } = props;
@@ -111,4 +118,4 @@ const useAsyncTable: React.FC<ArgTableProps> = (props) => {
   );
 };
 
-export default useAsyncTable;
+export default memo(useAsyncTable);
