@@ -1,12 +1,23 @@
-import React, { memo, useEffect, useReducer, useCallback } from 'react';
+import React, {
+  memo,
+  useState,
+  useEffect,
+  useReducer,
+  useCallback,
+  useMemo,
+} from 'react';
 import { Table } from 'antd';
 import {
-  ArgTableProps,
+  BasicTableProps,
   paginationInitialType,
   initialStateType,
   actionType,
 } from './tyoings';
-
+import { useCustomRow } from './hooks/useCustomRow';
+import { useRowSelection } from './hooks/useRowSelection';
+import { useDataSource } from './hooks/useDataSource';
+import { usePagination } from './hooks/usePagination';
+import { useLoading } from './hooks/useLoading';
 // const compare = (pre: ArgTableProps, cur: ArgTableProps) => {
 //   let preState = JSON.stringify(pre.columns);
 //   let curState = JSON.stringify(cur.columns);
@@ -14,9 +25,8 @@ import {
 //   return true;
 // };
 
-const useAsyncTable: React.FC<ArgTableProps> = (props) => {
+const useAsyncTable: React.FC<BasicTableProps> = (props) => {
   const { api, params, columns, baseProps } = props;
-
   // 分页数据
   const paginationInitial: paginationInitialType = {
     current: 1,
@@ -70,6 +80,24 @@ const useAsyncTable: React.FC<ArgTableProps> = (props) => {
     api,
   ]);
 
+  // 引用表格数据
+  const [tableData, setTableData] = useState<Recordable[]>([]);
+
+  /** 加载状态配置 */
+  const { getLoading, setLoading } = useLoading(props);
+  /** 分页配置 */
+  const { getPaginationInfo } = usePagination(props, { setLoading });
+  /** 行事件 */
+  const { onRow } = useCustomRow(props);
+  /** 选中操作 */
+  const { getRowSelectionRef } = useRowSelection(props, state.dataSource);
+  /** 对数据操作 */
+  const { getDataSourceRef } = useDataSource(props, {
+    setLoading,
+    setTableData,
+    getPaginationInfo,
+  });
+
   async function fetchData() {
     dispatch({
       type: 'TOGGLE_LOADING',
@@ -101,6 +129,15 @@ const useAsyncTable: React.FC<ArgTableProps> = (props) => {
     }
   }
 
+  const getTableProps: Recordable = useMemo(
+    () => ({
+      ...(baseProps || {}),
+      onRow: onRow,
+      rowSelection: getRowSelectionRef,
+    }),
+    [getRowSelectionRef],
+  );
+
   useEffect(() => {
     fetchDataWarp();
   }, [fetchDataWarp]);
@@ -109,13 +146,16 @@ const useAsyncTable: React.FC<ArgTableProps> = (props) => {
     <Table
       columns={columns}
       pagination={state.pagination}
-      dataSource={state.dataSource}
-      loading={state.loading}
+      dataSource={getDataSourceRef}
+      loading={getLoading}
       onChange={handleTableChange}
-      rowKey={(record) => record.id}
-      {...baseProps}
+      {...getTableProps}
     />
   );
+};
+
+useAsyncTable.defaultProps = {
+  autoCreateKey: true,
 };
 
 export default memo(useAsyncTable);

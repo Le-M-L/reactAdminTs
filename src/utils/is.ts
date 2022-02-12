@@ -11,3 +11,7 @@ export function isString(val: unknown): val is string {
 export function isFunction(val: unknown): val is Function {
   return typeof val === 'function';
 }
+
+export function isBoolean(val: unknown): val is boolean {
+  return is(val, 'Boolean');
+}

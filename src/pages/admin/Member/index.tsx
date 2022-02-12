@@ -1,13 +1,16 @@
 import { useState, useMemo } from 'react';
 import { Button } from 'antd';
 import { getMemberList } from '@/services/admin/member';
-import BaseTable from '@/components/Table';
+import BasicTable from '@/components/Table';
 /** 会员管理 */
 const Member = () => {
   // 请求参数
   const [params, setParams] = useState({});
   const [count, setCount] = useState(0);
-  const columns = [
+  const rowSelection = {
+    selectedRowKeys: [1],
+  };
+  const [columns] = useState([
     {
       title: '姓名',
       dataIndex: 'name',
@@ -21,7 +24,7 @@ const Member = () => {
         return <a href="">edit</a>;
       },
     },
-  ];
+  ]);
   const handleCount = () => {
     setCount(count + 1);
   };
@@ -30,7 +33,12 @@ const Member = () => {
     <>
       <span>{count}</span>
       <Button onClick={handleCount}>点击</Button>
-      <BaseTable api={getMemberList} params={params} columns={columns} />
+      <BasicTable
+        rowSelection={rowSelection}
+        api={getMemberList}
+        params={params}
+        columns={columns}
+      />
     </>
   );
 };

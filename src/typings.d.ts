@@ -12,3 +12,7 @@ declare module '*.svg' {
 declare const REACT_APP_ENV: 'test' | 'dev' | 'pre' | false;
 
 declare type Recordable<T = any> = Record<string, T>;
+
+declare interface Fn<T = any, R = T> {
+  (...arg: T[]): R;
+}

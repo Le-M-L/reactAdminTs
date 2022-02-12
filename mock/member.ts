@@ -8,11 +8,11 @@ export default {
       data: [
         {
           name: '1',
-          id: '1',
+          id: 1,
         },
         {
           name: '2',
-          id: '2',
+          id: 2,
         },
       ],
       total: 100,
