@@ -26,19 +26,14 @@ const Member = () => {
     },
   ]);
   const handleCount = () => {
-    setCount(count + 1);
+    // setCount(count + 1);
   };
 
   return (
     <>
       <span>{count}</span>
       <Button onClick={handleCount}>点击</Button>
-      <BasicTable
-        rowSelection={rowSelection}
-        api={getMemberList}
-        params={params}
-        columns={columns}
-      />
+      <BasicTable api={getMemberList} columns={columns} />
     </>
   );
 };
