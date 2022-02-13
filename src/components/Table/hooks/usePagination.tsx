@@ -22,10 +22,10 @@ export function usePagination(props: BasicTableProps, {}) {
   // 分页配置
   const [configRef, setConfigRef] = useState<PaginationProps>({});
   const [loading, setLoading] = useState(false);
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState(true);
 
   /** 获取分页配置 */
-  const getPaginationInfo = useMemo<PaginationProps | boolean>(() => {
+  const getPaginationInfo = useMemo<PaginationProps | false>(() => {
     if (!show || (isBoolean(props.pagination) && !props.pagination)) {
       return false;
     }
@@ -40,7 +40,6 @@ export function usePagination(props: BasicTableProps, {}) {
       ...configRef,
     };
   }, [configRef, props.pagination, show]);
-
   /** 获取分页配置 */
   function getPagination() {
     return getPaginationInfo;
@@ -48,9 +47,8 @@ export function usePagination(props: BasicTableProps, {}) {
 
   /** 设置分页 */
   function setPagination(info: any) {
-    const paginationInfo = getPaginationInfo;
     setConfigRef({
-      ...(!isBoolean(paginationInfo) ? paginationInfo : {}),
+      ...(!isBoolean(getPaginationInfo) ? getPaginationInfo : {}),
       ...info,
     });
   }

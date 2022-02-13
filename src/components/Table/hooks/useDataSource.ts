@@ -9,6 +9,8 @@ interface ActionType {
   setLoading: (loading: boolean) => void;
   setTableData: (dataSource: Recordable[]) => void;
   getPaginationInfo: boolean | PaginationProps;
+  clearSelectedRowKeys: () => void;
+  setPagination: (info: Partial<PaginationProps>) => void;
 }
 
 interface SearchState {
@@ -17,8 +19,14 @@ interface SearchState {
 }
 
 export function useDataSource(
-  props: BasicTableProps,
-  { setLoading, setTableData, getPaginationInfo }: ActionType,
+  propsRef: BasicTableProps,
+  {
+    setLoading,
+    setTableData,
+    getPaginationInfo,
+    clearSelectedRowKeys,
+    setPagination,
+  }: ActionType,
 ) {
   const [dataSource, setDataSource] = useState<Recordable[]>();
   // 原始数据
@@ -31,12 +39,12 @@ export function useDataSource(
 
   /** 是否自动创建key */
   const getAutoCreateKey = useMemo(() => {
-    return props.autoCreateKey && !props.rowKey;
+    return propsRef.autoCreateKey && !propsRef.rowKey;
   }, []);
 
   const getRowKey = useMemo(() => {
-    return getAutoCreateKey ? ROW_KEY : props.rowKey;
-  }, [getAutoCreateKey, props.rowKey]);
+    return getAutoCreateKey ? ROW_KEY : propsRef.rowKey;
+  }, [getAutoCreateKey, propsRef.rowKey]);
 
   const getDataSourceRef = useMemo(() => {
     if (!dataSource || dataSource.length == 0) {
@@ -66,9 +74,9 @@ export function useDataSource(
   }, [dataSource]);
 
   /** 请求获取数据 */
-  async function fetch(opt?: FetchParams) {
+  async function fetch(opt?: FetchParams, newPagination?: PaginationProps) {
     const { api, beforeFetch, searchInfo, fetchSetting, pagination, defSort } =
-      props;
+      propsRef;
     if (!api || !isFunction(api)) return;
     try {
       setLoading(true);
@@ -115,14 +123,41 @@ export function useDataSource(
       /** 拿到分页 和 total */
       let resultItems: Recordable[] = isArrayResult ? res : get(res, listField);
       const resultTotal: number = isArrayResult ? 0 : get(res, totalField);
-      console.log(resultItems);
       setDataSource(resultItems);
+      setPagination({
+        ...newPagination,
+        total: resultTotal || 0,
+      });
+
+      // if (opt && opt.page) {
+      //   setPagination({
+      //     current: opt.page || 1,
+      //   });
+      // }
+      return resultTotal;
     } catch (error) {
-      console.log(error);
       setDataSource([]);
+      setPagination({
+        total: 0,
+      });
     } finally {
       setLoading(false);
     }
+  }
+
+  /** 切换分页时候触发 */
+  function handleTableChange(pagination: PaginationProps): void {
+    const { clearSelectOnPageChange, sortFn } = propsRef;
+    // 是否清空选中数据
+    if (clearSelectOnPageChange) {
+      clearSelectedRowKeys();
+    }
+    console.log(pagination);
+    setPagination({
+      ...pagination,
+    });
+    const params: Recordable = {};
+    fetch(params, pagination);
   }
 
   useEffect(() => {
@@ -134,5 +169,6 @@ export function useDataSource(
 
   return {
     getDataSourceRef,
+    handleTableChange,
   };
 }

@@ -1,18 +1,21 @@
 // import { Columns } from '../../types/types'
 import { TableProps, ColumnsType, ColumnProps } from 'antd/lib/table';
-import { TableRowSelection as ITableRowSelection } from 'antd/lib/table/interface';
+import {
+  TableRowSelection as ITableRowSelection,
+  TablePaginationConfig,
+} from 'antd/lib/table/interface';
 
 // export interface TableRowSelection<T = any> extends ITableRowSelection<T> {
 //   onChange?: (selectedRowKeys: string[] | number[], selectedRows: T[]) => any
 // }
 // 分页接口
-interface PaginationProps {
+interface PaginationProps extends TablePaginationConfig {
   total?: number; // 总数
   defaultCurrent?: number; // 默认的当前页
   current?: number; // 当前页
   defaultPageSize?: number; // 默认的分页大小
   pageSize?: number; // 分页大小
-  size?: string; // 分页大小 默认 small
+  // size?: string; // 分页大小 默认 small
   simple?: boolean; //简单分页
   pageSizeOptions?: string[]; // 指定每页显示多少条
   showSizeChanger?: boolean; // 是否展示 pageSize 切换器，当 total 大于 50 时默认为 true
@@ -66,6 +69,7 @@ export interface BasicTableProps<T = any> {
   beforeFetch?: Fn;
   // 自定义排序方法
   sortFn?: (sortInfo: SorterResult) => any;
+  clearSelectOnPageChange?: boolean; // 在分页改变时 清空选中值
 }
 
 export interface paginationInitialType {

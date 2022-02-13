@@ -18,12 +18,12 @@ import { useRowSelection } from './hooks/useRowSelection';
 import { useDataSource } from './hooks/useDataSource';
 import { usePagination } from './hooks/usePagination';
 import { useLoading } from './hooks/useLoading';
-// const compare = (pre: ArgTableProps, cur: ArgTableProps) => {
-//   let preState = JSON.stringify(pre.columns);
-//   let curState = JSON.stringify(cur.columns);
-//   if (preState !== curState) return false;
-//   return true;
-// };
+const compare = (pre: BasicTableProps, cur: BasicTableProps) => {
+  let preState = JSON.stringify(pre.columns);
+  let curState = JSON.stringify(cur.columns);
+  if (preState !== curState) return false;
+  return true;
+};
 
 const useAsyncTable: React.FC<BasicTableProps> = (props) => {
   const { api, params, columns, baseProps } = props;
@@ -58,20 +58,20 @@ const useAsyncTable: React.FC<BasicTableProps> = (props) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   // 改变页码
-  function handleTableChange(payload: any) {
-    if (payload) {
-      const { current } = payload;
-      dispatch({
-        type: 'SET_PAGINATION',
-        payload: {
-          pagination: {
-            ...state.pagination,
-            current,
-          },
-        },
-      });
-    }
-  }
+  // function handleTableChange(payload: any) {
+  //   if (payload) {
+  //     const { current } = payload;
+  //     dispatch({
+  //       type: 'SET_PAGINATION',
+  //       payload: {
+  //         pagination: {
+  //           ...state.pagination,
+  //           current,
+  //         },
+  //       },
+  //     });
+  //   }
+  // }
 
   // useCallback包装请求，缓存依赖，优化组件性能
   const fetchDataWarp = useCallback(fetchData, [
@@ -86,16 +86,23 @@ const useAsyncTable: React.FC<BasicTableProps> = (props) => {
   /** 加载状态配置 */
   const { getLoading, setLoading } = useLoading(props);
   /** 分页配置 */
-  const { getPaginationInfo } = usePagination(props, { setLoading });
+  const { getPaginationInfo, setPagination } = usePagination(props, {
+    setLoading,
+  });
   /** 行事件 */
   const { onRow } = useCustomRow(props);
   /** 选中操作 */
-  const { getRowSelectionRef } = useRowSelection(props, state.dataSource);
+  const { getRowSelectionRef, clearSelectedRowKeys } = useRowSelection(
+    props,
+    state.dataSource,
+  );
   /** 对数据操作 */
-  const { getDataSourceRef } = useDataSource(props, {
+  const { getDataSourceRef, handleTableChange } = useDataSource(props, {
     setLoading,
     setTableData,
     getPaginationInfo,
+    clearSelectedRowKeys,
+    setPagination,
   });
 
   async function fetchData() {
@@ -145,7 +152,7 @@ const useAsyncTable: React.FC<BasicTableProps> = (props) => {
   return (
     <Table
       columns={columns}
-      pagination={state.pagination}
+      pagination={getPaginationInfo}
       dataSource={getDataSourceRef}
       loading={getLoading}
       onChange={handleTableChange}
@@ -158,4 +165,4 @@ useAsyncTable.defaultProps = {
   autoCreateKey: true,
 };
 
-export default memo(useAsyncTable);
+export default memo(useAsyncTable, compare);
