@@ -25,15 +25,31 @@ const Member = () => {
       },
     },
   ]);
+  const [pagination, setPagination] = useState({
+    current: 2,
+  });
+  const [loading, setLoaidng] = useState(true);
   const handleCount = () => {
-    // setCount(count + 1);
+    setLoaidng(false);
+  };
+
+  const handlePage = () => {
+    setPagination({
+      current: 6,
+    });
   };
 
   return (
     <>
       <span>{count}</span>
       <Button onClick={handleCount}>点击</Button>
-      <BasicTable api={getMemberList} columns={columns} />
+      <Button onClick={handlePage}>修改分页</Button>
+      <BasicTable
+        api={getMemberList}
+        loading={loading}
+        columns={columns}
+        pagination={pagination}
+      />
     </>
   );
 };
