@@ -7,12 +7,16 @@ import { isFunction } from '@/utils/is';
 
 interface ActionType {
   setLoading: (loading: boolean) => void;
-  setPagintaion: (pagintaion: IPaginationType) => void;
+  setPagination: (pagintaion: IPaginationType) => void;
+}
+interface TableType {
+  paginationRef: IPaginationType;
 }
 
 export function useDataSource(
   props: BasicTableProps,
-  { setLoading, setPagintaion }: ActionType,
+  { setLoading, setPagination }: ActionType,
+  { paginationRef }: TableType,
 ) {
   const [dataSource, setDataSource] = useState([]);
 
@@ -31,7 +35,7 @@ export function useDataSource(
     const { api, fetchSetting } = props;
     if (!api || !isFunction(api)) return;
     try {
-      // setLoading(true);
+      setLoading(true);
       // 请求结果配置等等
       const { pageField, sizeField, listField, totalField } = Object.assign(
         {},
@@ -40,23 +44,25 @@ export function useDataSource(
       );
       // 请求参数
       let pageParams: Recordable = {};
+      let { data } = await api();
+      setDataSource(data);
     } catch (error) {
+      setDataSource([]);
+      setPagination({ total: 0 });
+      console.error(error);
     } finally {
-      // setLoading(false);
+      setLoading(false);
     }
-
-    api().then((res) => {
-      setDataSource(res.data);
-    });
+    console.log(123);
   }
 
   /** 分页切换的时候触发 */
   function handleTableChange(pagination: TablePaginationConfig) {
-    setPagintaion(pagination as IPaginationType);
+    setPagination(pagination as IPaginationType);
   }
 
   /** 缓存请求 */
-  const fetchWarp = useCallback(fetch, [props.pagination]);
+  const fetchWarp = useCallback(fetch, [paginationRef]);
 
   useEffect(() => {
     fetchWarp();

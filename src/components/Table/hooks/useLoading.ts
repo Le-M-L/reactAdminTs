@@ -4,7 +4,6 @@ import { useDidUpdateEffect } from '@/hooks/core/useDidUpdateEffect';
 
 export function useLoading(props: BasicTableProps) {
   const [loadingRef, setLoadingRef] = useState(props.loading);
-  console.log(loadingRef);
   useDidUpdateEffect(() => {
     setLoading(props.loading as boolean);
   }, [props.loading]);

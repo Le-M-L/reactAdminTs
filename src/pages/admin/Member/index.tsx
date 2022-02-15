@@ -30,6 +30,10 @@ const Member = () => {
   });
   const [loading, setLoaidng] = useState(true);
   const handleCount = () => {
+    setCount(count + 1);
+  };
+
+  const handleClick = () => {
     setLoaidng(false);
   };
 
@@ -42,7 +46,8 @@ const Member = () => {
   return (
     <>
       <span>{count}</span>
-      <Button onClick={handleCount}>点击</Button>
+      <Button onClick={handleCount}>+1</Button>
+      <Button onClick={handleClick}>点击</Button>
       <Button onClick={handlePage}>修改分页</Button>
       <BasicTable
         api={getMemberList}
