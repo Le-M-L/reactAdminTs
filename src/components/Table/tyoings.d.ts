@@ -3,6 +3,12 @@ export interface PaginationInitialType {
   pageSize: number;
   total: number;
 }
+export interface FetchParams {
+  searchInfo?: Recordable;
+  page?: number;
+  sortInfo?: Recordable;
+  filterInfo?: Recordable;
+}
 
 export interface InitialStateType {
   loading: boolean;
@@ -37,6 +43,11 @@ export interface BasicTableProps {
   beforeFetch?: Fn;
   fetchSetting?: FetchSetting; // 请求结果配置
   pagination: IPaginationType;
+  // 默认的排序参数
+  defSort?: Recordable;
+  // 额外的请求参数
+  searchInfo?: Recordable;
+  clearSelectOnPageChange?: boolean; // 在分页改变时 清空选中值
 }
 
 /** 分页 */

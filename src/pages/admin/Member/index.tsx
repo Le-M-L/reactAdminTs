@@ -7,6 +7,7 @@ const Member = () => {
   // 请求参数
   const [params, setParams] = useState({});
   const [count, setCount] = useState(0);
+  const [counts, setCounts] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9]);
   const rowSelection = {
     selectedRowKeys: [1],
   };
@@ -31,6 +32,8 @@ const Member = () => {
   const [loading, setLoaidng] = useState(true);
   const handleCount = () => {
     setCount(count + 1);
+    counts.splice(4, 1);
+    setCounts(counts);
   };
 
   const handleClick = () => {
