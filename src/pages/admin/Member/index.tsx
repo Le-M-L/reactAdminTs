@@ -11,6 +11,7 @@ const Member = () => {
   const rowSelection = {
     selectedRowKeys: [1],
   };
+
   const [columns] = useState([
     {
       title: '姓名',
@@ -57,6 +58,10 @@ const Member = () => {
         loading={loading}
         columns={columns}
         pagination={pagination}
+        rowSelection={{}}
+        onSelectionChange={(val) => {
+          console.log(val);
+        }}
       />
     </>
   );

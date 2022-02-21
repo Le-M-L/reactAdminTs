@@ -15,26 +15,24 @@ import { useRowSelection } from './hooks/useRowSelection';
 import type { BasicTableProps } from './tyoings.d';
 
 const BasicTable: React.FC<BasicTableProps> = (props) => {
-  console.log(11);
-
+  const [tableData, setTableDataRef] = useState([]);
   /** 加载动画设置 */
   const { loading, setLoading } = useLoading(props);
   /** 分页设置 */
   const { pagination, setPagination } = usePagination(props);
   /** 行选择设置 */
-  const { clearSelectedRowKeys } = useRowSelection(props);
-  /** 数据获取 */
-  const { dataSource, handleTableChange } = useDataSource(
+  const { clearSelectedRowKeys, getRowSelectionRef } = useRowSelection(
     props,
-    {
-      setLoading,
-      setPagination,
-      clearSelectedRowKeys,
-    },
-    {
-      paginationRef: pagination,
-    },
+    tableData,
   );
+  /** 数据获取 */
+  const { dataSource, handleTableChange } = useDataSource(props, {
+    setTableDataRef,
+    paginationRef: pagination,
+    setLoading,
+    setPagination,
+    clearSelectedRowKeys,
+  });
 
   return (
     <>
@@ -43,6 +41,7 @@ const BasicTable: React.FC<BasicTableProps> = (props) => {
         dataSource={dataSource}
         columns={props.columns}
         pagination={pagination}
+        rowSelection={getRowSelectionRef}
         onChange={handleTableChange}
       />
     </>

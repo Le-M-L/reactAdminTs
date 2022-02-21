@@ -1,3 +1,5 @@
+import type { TableRowSelection as ITableRowSelection } from 'antd/lib/table/interface';
+
 export interface PaginationInitialType {
   current: number;
   pageSize: number;
@@ -32,6 +34,15 @@ export interface FetchSetting {
   totalField: string;
 }
 
+/** 行选择配置 */
+export interface TableRowSelection<T = any> extends ITableRowSelection<T> {
+  /**
+   * Callback executed when selected rows change
+   * @type Function
+   */
+  onChange?: (selectedRowKeys: React.Key[], selectedRows: T[]) => any;
+}
+
 /** 表格 */
 export interface BasicTableProps {
   loading?: boolean;
@@ -47,7 +58,11 @@ export interface BasicTableProps {
   defSort?: Recordable;
   // 额外的请求参数
   searchInfo?: Recordable;
+  rowSelection: TableRowSelection;
   clearSelectOnPageChange?: boolean; // 在分页改变时 清空选中值
+
+  onSelectionChange?: Fn;
+  childrenColumnName?: string;
 }
 
 /** 分页 */

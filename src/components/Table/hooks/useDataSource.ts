@@ -10,13 +10,11 @@ import { FETCH_SETTING, ROW_KEY, PAGE_SIZE } from '../const';
 import { isFunction, isBoolean } from '@/utils/is';
 import { buildUUID } from '@/utils/uuid';
 import { get, cloneDeep, merge, mean } from 'lodash-es';
-
 interface ActionType {
+  setTableDataRef: Fn;
   setLoading: (loading: boolean) => void;
   setPagination: (pagintaion: IPaginationType) => void;
   clearSelectedRowKeys: () => void;
-}
-interface TableType {
   paginationRef: IPaginationType;
 }
 
@@ -27,8 +25,13 @@ interface SearchState {
 
 export function useDataSource(
   props: BasicTableProps,
-  { setLoading, setPagination, clearSelectedRowKeys }: ActionType,
-  { paginationRef }: TableType,
+  {
+    setTableDataRef,
+    setLoading,
+    setPagination,
+    clearSelectedRowKeys,
+    paginationRef,
+  }: ActionType,
 ) {
   const [dataSource, setDataSource] = useState<Recordable[]>([]);
   /** 查询参数设置 */
@@ -38,6 +41,10 @@ export function useDataSource(
   });
   // 原始数据
   const [rewDataSourceRef, setRawDataSourceRef] = useState<Recordable>({});
+
+  useEffect(() => {
+    setTableDataRef([...dataSource]);
+  }, [dataSource]);
 
   /** 自动创建key */
   const getAutoCreateKey = useMemo(() => {
